@@ -10,6 +10,9 @@ public class shipControl : MonoBehaviour
     public float turnRate = 5.0f;
     public float maxSpeed = 10.0f;
 
+    //reference to BulletPrefab
+    public GameObject bullet;
+
     //local ship parameters
     float xInput = 0, yInput = 0;
     float rotationAng = 0;
@@ -73,6 +76,15 @@ public class shipControl : MonoBehaviour
         yInput = inputVector.y;
     }
 
+    public void FireWeapons(bool isFiring)
+    {
+        if(isFiring)
+        {
+            //fire the thing
+            Instantiate(bullet, shipRigidBody2D.transform.position,shipRigidBody2D.transform.rotation);
+
+        }
+    }
 
 }
 

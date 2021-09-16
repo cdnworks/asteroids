@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class asteroidControl : MonoBehaviour
+public class medAsteroidControl : MonoBehaviour
 {
     //global asteroid perameters
     public float minSpeed = 0.1f, maxSpeed = 5.0f;
+    public GameObject smlAsteroid;
 
 
     //local asteroid perameters
-    float trajectory, speed;
+    float trajectory, speed, rotationFactor;
     Vector2 velocityVector;
 
 
@@ -23,13 +24,14 @@ public class asteroidControl : MonoBehaviour
         trajectory = GetInitialTrajectory();
         speed = GetInitialSpeed();
         velocityVector = MakeVector(trajectory, speed);
+        rotationFactor = Random.Range(-speed / 10, speed / 10);    //create a random factor to rotate the asteroid by based on it's speed, looks cooler.
         asteroidRigidBody2D.velocity = velocityVector;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        asteroidRigidBody2D.transform.Rotate(Vector3.forward * rotationFactor);
     }
 
     //generate a random trajectory for the asteroid on asteroid creation
@@ -67,6 +69,18 @@ public class asteroidControl : MonoBehaviour
         {
             //kill the player, remove a life, trigger reset player position etc.
             Debug.Log("The Astroid hit the Player!");
+        }
+
+        if (collision.CompareTag("Bullet"))
+        {
+            //spawn one to four small asteroids, destroy the original asteroid
+            int range = Random.Range(1, 4);
+            for (int i = 0; i < range; i++)
+            {
+                Instantiate(smlAsteroid, asteroidRigidBody2D.transform.position, transform.rotation);
+            }
+            Destroy(gameObject);
+
         }
     }
 }

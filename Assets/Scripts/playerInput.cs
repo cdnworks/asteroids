@@ -22,7 +22,11 @@ public class playerInput : MonoBehaviour
 
         inputVector.x = Input.GetAxis("Horizontal");
         inputVector.y = Input.GetAxis("Vertical");
-
         shipControl.SetInputVector(inputVector);
+
+        if (Input.GetKeyDown("space"))
+        {
+            shipControl.FireWeapons(true);
+        }
     }
 }
