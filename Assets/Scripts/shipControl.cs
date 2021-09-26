@@ -9,13 +9,20 @@ public class shipControl : MonoBehaviour
     public float accRate = 30.0f;
     public float turnRate = 5.0f;
     public float maxSpeed = 10.0f;
+    public float shieldTime = 3.0f;
+    public float shieldTimeMax = 3.0f;
 
-    //reference to BulletPrefab
+
+    //reference to bullet and shield prefabs
     public GameObject bullet;
+    public GameObject shield;
 
     //local ship parameters
     float xInput = 0, yInput = 0;
     float rotationAng = 0;
+    bool shieldUp = false;
+    bool shieldOnCD = false;
+
 
     //components
     Rigidbody2D shipRigidBody2D;
@@ -27,6 +34,7 @@ public class shipControl : MonoBehaviour
         //fetch rigidbody2D component
         shipRigidBody2D = GetComponent<Rigidbody2D>();
 
+
     }
 
     // Since the ship is a RigidBody, use FixedUpdate to apply forces and such
@@ -34,6 +42,7 @@ public class shipControl : MonoBehaviour
     {
         ApplyEngineForce();
         ApplySteeringForce();
+        ShieldTimer(shieldUp);
         
     }
 
@@ -76,6 +85,7 @@ public class shipControl : MonoBehaviour
         yInput = inputVector.y;
     }
 
+    //fire the weapons and stuff
     public void FireWeapons(bool isFiring)
     {
         if(isFiring)
@@ -85,6 +95,76 @@ public class shipControl : MonoBehaviour
 
         }
     }
+
+
+    public void IsThrusting(out bool isThrusterOn)
+    {
+        isThrusterOn = false;
+        //basically check if the player is applying thrust, if so, set a flag for fireFXHandler to read to spawn the fire effect
+        if (yInput > 0)
+        {
+            isThrusterOn = true;
+        }
+        else return;
+
+    }
+
+
+
+    //Shield Handling, spawns shield centered on the player that follows the player.
+    public void DeployShield(bool shieldPress,bool shieldRelease)
+    {
+        if (shieldPress && shieldOnCD == false)
+        {
+            //deploy the shield
+            Instantiate(shield, shipRigidBody2D.transform.position, Quaternion.identity, gameObject.transform);
+            shieldUp = true;
+
+
+        }
+        //destroy the shield on button release
+        if (shieldRelease)
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Shield"));
+            shieldUp = false;
+        }
+    }
+
+
+
+
+
+    public void ShieldTimer(bool isShieldUp)
+    {
+        if(isShieldUp)
+        {
+            shieldTime -= Time.deltaTime;
+            Debug.Log(shieldTime + " Seconds of Shield Remaining");
+
+            if (shieldTime <= 0)
+            {
+                //ran outta shields! Break the shield and get out of the function to prevent unwanted timer drain
+                shieldOnCD = true;
+                Destroy(GameObject.FindGameObjectWithTag("Shield"));
+                Debug.Log("Shields on Cooldown!");
+                return;
+
+            }
+        }
+        if(isShieldUp == false && shieldTime <= shieldTimeMax)
+        {
+            shieldTime += Time.deltaTime / 2;
+            Debug.Log("Shields Recharging with " + shieldTime + " Seconds Available");
+
+            if(shieldOnCD && shieldTime >= shieldTimeMax)
+            {
+                shieldOnCD = false;
+                Debug.Log("Shield Cooldown Over!");
+            }
+        }
+
+    }
+
 
 }
 

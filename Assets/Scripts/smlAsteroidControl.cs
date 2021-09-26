@@ -70,7 +70,7 @@ public class smlAsteroidControl : MonoBehaviour
             Debug.Log("The Astroid hit the Player!");
         }
 
-        if (collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Bullet") || collision.CompareTag("Shield"))
         {
             //Destroy the asteroid
             Destroy(gameObject);

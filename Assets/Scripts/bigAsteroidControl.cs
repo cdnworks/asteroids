@@ -60,7 +60,7 @@ public class bigAsteroidControl : MonoBehaviour
 
     //collider handling
     //the asteroid can collide with a few things in the scene:
-    // the ship, player gun shots and other asteroids. However, the play area is also a collider
+    // the ship, ship shields, player gun shots and other asteroids. However, the play area is also a collider
     //we must ignore the playspace collider when defining collision behaviors.
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -71,7 +71,7 @@ public class bigAsteroidControl : MonoBehaviour
             Debug.Log("The Astroid hit the Player!");
         }
 
-        if (collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Bullet") || collision.CompareTag("Shield"))
         {
             //spawn one to three medium asteroids, destroy the original asteroid
             int range = Random.Range(1, 3);

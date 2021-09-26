@@ -71,7 +71,7 @@ public class medAsteroidControl : MonoBehaviour
             Debug.Log("The Astroid hit the Player!");
         }
 
-        if (collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Bullet") || collision.CompareTag("Shield"))
         {
             //spawn one to four small asteroids, destroy the original asteroid
             int range = Random.Range(1, 4);

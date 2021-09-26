@@ -7,6 +7,9 @@ TagManager:
   - Asteroid
   - Bullet
   - Background
+  - Shield
+  - UFOBullet
+  - UFO
   layers:
   - Default
   - TransparentFX

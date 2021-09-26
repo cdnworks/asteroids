@@ -28,5 +28,14 @@ public class playerInput : MonoBehaviour
         {
             shipControl.FireWeapons(true);
         }
+
+        if (Input.GetKeyDown("left shift"))
+        {
+            shipControl.DeployShield(true,false);
+        }
+        if (Input.GetKeyUp("left shift"))
+        {
+            shipControl.DeployShield(false, true);
+        }
     }
 }
