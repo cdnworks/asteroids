@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ufoBulletHandler : MonoBehaviour
+public class UfoBulletHandler : MonoBehaviour
 {
     //global parameters
     public float shotSpeed = 5.0f;
@@ -37,6 +37,7 @@ public class ufoBulletHandler : MonoBehaviour
             //destroy the bullet
             Debug.Log("The Shot Hit The Player!");
             Destroy(gameObject);
+            GameStateHandler.isPlayerAlive = false;
         }
     }
 }

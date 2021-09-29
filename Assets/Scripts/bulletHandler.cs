@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bulletHandler : MonoBehaviour
+public class BulletHandler : MonoBehaviour
 {
     //global parameters
     public float shotSpeed = 5.0f;

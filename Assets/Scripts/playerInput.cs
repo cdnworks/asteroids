@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     //components
     //this script will use info from the shipControl script
-    shipControl shipControl;
+    ShipControl shipControl;
 
 
     private void Awake()
     {
-        shipControl = GetComponent<shipControl>();
+        shipControl = GetComponent<ShipControl>();
     }
 
     // Update is called once per frame

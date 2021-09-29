@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fireFXHandler : MonoBehaviour
+public class FireFXHandler : MonoBehaviour
 {
     //local variables
     bool isThrusting;
 
 
     //components
-    shipControl shipControl;
+    ShipControl shipControl;
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Awake()
     {
-        shipControl = GetComponentInParent<shipControl>();
+        shipControl = GetComponentInParent<ShipControl>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
 

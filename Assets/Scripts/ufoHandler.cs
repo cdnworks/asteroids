@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ufoHandler : MonoBehaviour
+public class UfoHandler : MonoBehaviour
 {
     //global vars
     [Header("UFO Atributes")]
     public float minSpeed = 1.0f;
     public float maxSpeed = 5.0f;
     public float firingInterval = 2.0f;
+    public int ufoScoreValue = 1000;
 
 
     //reference to UFO bullet prefab
@@ -108,7 +109,7 @@ public class ufoHandler : MonoBehaviour
         {
             //find the player and calculate the vector from the UFO to the player
             Vector2 shipPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-            Vector2 shotVector = new Vector2(gameObject.transform.position.x - shipPosition.x, gameObject.transform.position.y - shipPosition.y);
+            Vector2 shotVector = new Vector2(shipPosition.x - gameObject.transform.position.x, shipPosition.y - gameObject.transform.position.y);
             //make a quaternion
             Quaternion shotRotation = Quaternion.LookRotation(Vector3.forward,shotVector);
             
@@ -129,11 +130,14 @@ public class ufoHandler : MonoBehaviour
         {
             //kill the player, remove a life, trigger reset player position etc.
             Debug.Log("The UFO hit the Player!");
+            GameStateHandler.isPlayerAlive = false;
         }
 
         if (collision.CompareTag("Bullet") || collision.CompareTag("Shield"))
         {
-            //Destroy the UFO
+            //decrement the number of UFOs, add score in GameStateHandler(); and destroy the UFO
+            GameStateHandler.numUFO -= 1;
+            GameStateHandler.score += ufoScoreValue;
             Destroy(gameObject);
 
         }

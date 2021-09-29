@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class shipControl : MonoBehaviour
+public class ShipControl : MonoBehaviour
 {
     //global ship parameters
     [Header("Ship Attributes")]

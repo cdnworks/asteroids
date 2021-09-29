@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playfieldBoundaryHandler : MonoBehaviour
+public class PlayfieldBoundaryHandler : MonoBehaviour
 {
     // this script should manage when the player or enemy objects hit the edges of the play space,
     // and move them to an appropriate position instead of letting them fly offscreen
@@ -18,6 +18,7 @@ public class playfieldBoundaryHandler : MonoBehaviour
     {
         
     }
+
 
     private void OnTriggerExit2D(Collider2D other)
     {
